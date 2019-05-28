@@ -38,9 +38,15 @@ class _TestJulienState extends State<TestJulienHomepage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Widget buildNumberButtons(num value) {
-    return FlatButton(
-        child: Text(value.toString(), style: _buttonStyle),
-        onPressed: () => _addToDisplay(value));
+    return Container(
+        height: 70,
+        width: 70,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey), color: Colors.black26),
+        margin: EdgeInsets.all(5),
+        child: FlatButton(
+            child: Text(value.toString(), style: _buttonStyle),
+            onPressed: () => _addToDisplay(value)));
   }
 
   @override
@@ -98,8 +104,9 @@ class _TestJulienState extends State<TestJulienHomepage> {
               Expanded(
                   child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      decoration:
-                          BoxDecoration(border: Border.all(color: Colors.grey)),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          color: Colors.black26),
                       alignment: AlignmentDirectional.center,
                       child: Text('$operation', style: _inputStyle)))
             ],
@@ -122,9 +129,9 @@ class _TestJulienState extends State<TestJulienHomepage> {
 
           // 1 -> 3
           Container(
-              padding: const EdgeInsets.only(top: 50),
+              padding: const EdgeInsets.only(top: 30),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   buildNumberButtons(1),
                   buildNumberButtons(2),
@@ -134,7 +141,7 @@ class _TestJulienState extends State<TestJulienHomepage> {
 
           // 4 -> 6
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               buildNumberButtons(4),
               buildNumberButtons(5),
@@ -144,7 +151,7 @@ class _TestJulienState extends State<TestJulienHomepage> {
 
           // 7 -> 9
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               buildNumberButtons(7),
               buildNumberButtons(8),
@@ -161,15 +168,25 @@ class _TestJulienState extends State<TestJulienHomepage> {
           ),
 
           // Clear & Send
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FlatButton(child: Text('Effacer', style: _buttonStyle), onPressed: () => _clear()),
-              FlatButton(
-                  child: Text('Vérifier', style: _buttonStyle),
-                  onPressed: () => input != '' ? _compare() : null)
-            ],
-          ),
+          Container(
+              padding: const EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  IconButton(
+                      //child: Text('Effacer', style: _buttonStyle),
+                      icon: Icon(Icons.clear),
+                      iconSize: 40,
+                      color: Colors.redAccent,
+                      onPressed: () => _clear()),
+                  IconButton(
+                      //child: Text('Vérifier', style: _buttonStyle),
+                      icon: Icon(Icons.search),
+                      iconSize: 40,
+                      color: Colors.blueAccent,
+                      onPressed: () => input != '' ? _compare() : null)
+                ],
+              )),
         ],
       ),
     );
@@ -203,6 +220,7 @@ class _TestJulienState extends State<TestJulienHomepage> {
       _selectNewOperation();
     } else {
       _scaffoldKey.currentState.showSnackBar(errorSnack);
+      _clear();
     }
   }
 
